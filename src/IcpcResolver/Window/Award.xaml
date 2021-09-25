@@ -41,13 +41,13 @@
                 </Grid.ColumnDefinitions>
                 
                 <!-- school icon -->
-                <Border Grid.Column="0"
+                <!--<Border Grid.Column="0"
                         Width="200"
                         Height="200"
                         VerticalAlignment="Top"
                         Background="Chartreuse">
                     <Label Content="School Icon"/>
-                </Border>
+                </Border>-->
                 
                 <StackPanel Grid.Column="1" x:Name="AwardsPanel" Margin="5 0 0 0">
                     <StackPanel Orientation="Horizontal">

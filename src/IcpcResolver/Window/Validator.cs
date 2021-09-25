@@ -7,14 +7,23 @@ namespace IcpcResolver.Window
 {
     public class Validator
     {
+        private const bool ignoreHiddenGroupsAndTeams = true;
+
         public List<School> SchoolsList;
         public List<Group> GroupsList;
         public List<TeamInfo> TeamsList;
+
+        public List<TeamInfo> IgnoredTeams;
+        
         public List<Problem> ProblemsList;
         public List<SubmissionWithResult> SubmissionWithResultsList;
+        
+        public List<SubmissionWithResult> IgnoredSubmissionsWithResultsList;
+        
         public List<ReturnSummary> ReturnSummaryList;
         public ContestInfo ContestInfo;
         public readonly StreamReader JsonFileStream;
+        
         
         public Validator(string pathToJson)
         {
@@ -22,11 +31,16 @@ namespace IcpcResolver.Window
             SchoolsList = new List<School>();
             GroupsList = new List<Group>();
             TeamsList = new List<TeamInfo>();
+            IgnoredTeams = new List<TeamInfo>();
             ProblemsList = new List<Problem>();
             ReturnSummaryList = new List<ReturnSummary>();
             SubmissionWithResultsList = new List<SubmissionWithResult>();
+            IgnoredSubmissionsWithResultsList = new List<SubmissionWithResult>();
+            
             ContestInfo = new ContestInfo();
         }
+
+        
 
         public Validator(List<School> sl, List<Group> gl, List<TeamInfo> ti, List<Problem> p,
             List<SubmissionWithResult> swr, ContestInfo ci)
@@ -66,6 +80,7 @@ namespace IcpcResolver.Window
                             break;
                         case "groups":
                             var group = opData.ToObject<Group>();
+                            
                             if (opType.ToString() == "create")
                             {
                                 GroupsList.Add(group);
@@ -81,17 +96,28 @@ namespace IcpcResolver.Window
                             break;
                         case "teams":
                             var team = opData.ToObject<TeamInfo>();
+
+                            var groups = new List<Group>();
+                            foreach(var teamGroup in team.group_ids)
+                                groups.Add(GroupsList.First(x=>x.id == teamGroup));
+
+                            var targetList = TeamsList;
+
+                            if (groups.All(x => x.hidden == true))
+                                targetList = IgnoredTeams;
+                            
+
                             if (opType.ToString() == "create")
                             {
-                                TeamsList.Add(team);
+                                targetList.Add(team);
                             }
                             else if (opType.ToString() == "update")
                             {
-                                var idx = TeamsList.FindIndex(x => x.id == team.id);
+                                var idx = targetList.FindIndex(x => x.id == team.id);
                                 if (idx != -1)
-                                    TeamsList[idx] = team;
+                                    targetList[idx] = team;
                                 else
-                                    TeamsList.Add(team);
+                                    targetList.Add(team);
                             }
                             break;
                         case "problems":
@@ -114,22 +140,33 @@ namespace IcpcResolver.Window
                             break;
                         case "submissions":
                             var submission = opData.ToObject<Submission>();
+
+                            var targetSubmissionList = SubmissionWithResultsList;
+
+                            if (IgnoredTeams.Select(x => x.id).Contains(submission.team_id))
+                                targetSubmissionList = IgnoredSubmissionsWithResultsList;
+                            
                             if (opType.ToString() == "delete")
                             {
-                                SubmissionWithResultsList.RemoveAt(
-                                    SubmissionWithResultsList.FindIndex(x => x.id == opData["id"]?.ToString()));
+                                targetSubmissionList.RemoveAt(
+                                    targetSubmissionList.FindIndex(x => x.id == opData["id"]?.ToString()));
                             }
                             else
                             {
                                 var submissionWithResult = new SubmissionWithResult(submission);
-                                SubmissionWithResultsList.Add(submissionWithResult);
+                                targetSubmissionList.Add(submissionWithResult);
                             }
 
                             break;
                         case "judgements":
                             string submissionId = opData["submission_id"].ToString(),
                                 judgeResult = opData["judgement_type_id"].ToString();
-                            SubmissionWithResultsList.First(x => x.id == submissionId).judgeResult = judgeResult;
+
+                            var submissionResult =
+                                SubmissionWithResultsList.FirstOrDefault(x => x.id == submissionId) ??
+                                IgnoredSubmissionsWithResultsList.First(x => x.id == submissionId);
+                            
+                            submissionResult.judgeResult = judgeResult;
                             break;
                         case "contests":
                             ContestInfo = opData.ToObject<ContestInfo>();
