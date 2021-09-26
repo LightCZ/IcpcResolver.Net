@@ -311,22 +311,23 @@ namespace IcpcResolver.Window
             var teamDtoList = new List<TeamDto>();
             foreach (var teamAward in this._awardInfo.TeamRankInfos)
             {
+
                 var problemDtoFrom = teamAward.SubmissionInfosBefore.Select(submissionInfo => new ProblemDto()
                 {
                     Label = submissionInfo.ProblemLabel, Status = ConvertStatus(submissionInfo.SubmissionStatus),
                     Time = submissionInfo.SubmissionTime is null ? 0 : submissionInfo.GetIntSubmissionTime(),
-                    Try = ConvertStatus(submissionInfo.SubmissionStatus) == ProblemStatus.Accept
-                        ? submissionInfo.TryTime + 2
-                        : submissionInfo.TryTime + 1
+                    Try = (ConvertStatus(submissionInfo.SubmissionStatus) == ProblemStatus.Accept || ConvertStatus(submissionInfo.SubmissionStatus) == ProblemStatus.FirstBlood) 
+                        ? submissionInfo.TryTime + 1
+                        : submissionInfo.TryTime + 0
                 }).ToList();
 
                 var problemDtoTo = teamAward.SubmissionInfosAfter.Select(submissionInfo => new ProblemDto
                 {
                     Label = submissionInfo.ProblemLabel, Status = ConvertStatus(submissionInfo.SubmissionStatus),
                     Time = submissionInfo.SubmissionTime is null ? 0 : submissionInfo.GetIntSubmissionTime(),
-                    Try = ConvertStatus(submissionInfo.SubmissionStatus) == ProblemStatus.Accept
-                        ? submissionInfo.TryTime + 2
-                        : submissionInfo.TryTime + 1
+                    Try = (ConvertStatus(submissionInfo.SubmissionStatus) == ProblemStatus.Accept || ConvertStatus(submissionInfo.SubmissionStatus) == ProblemStatus.FirstBlood) 
+                        ? submissionInfo.TryTime + 1
+                        : submissionInfo.TryTime + 0
                 }).ToList();
 
 

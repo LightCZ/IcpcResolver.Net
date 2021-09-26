@@ -168,7 +168,7 @@ namespace IcpcResolver.Window
                         case "judgements":
                             string submissionId = opData["submission_id"].ToString(),
                                 judgeResult = opData["judgement_type_id"].ToString();
-
+                            
                             var submissionResult =
                                 SubmissionWithResultsList.FirstOrDefault(x => x.id == submissionId) ??
                                 IgnoredSubmissionsWithResultsList.First(x => x.id == submissionId);
