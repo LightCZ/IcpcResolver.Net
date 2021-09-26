@@ -287,12 +287,12 @@
                     <Label Grid.Column="2" Content="First Blood" HorizontalAlignment="Center"/>
                     <Label Grid.Row="1" Grid.Column="2" Content="Last Accept" HorizontalAlignment="Center"/>
                     <Label Grid.Row="2" Grid.Column="2" Content="Group Top" HorizontalAlignment="Center" FontStyle="Normal"/>
-                    <TextBox x:Name="GoldNumber" Text="0" Grid.Column="1" HorizontalAlignment="Center" Width="125"/>
-                    <TextBox x:Name="SilverNumber" Text="0" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" Width="125"/>
-                    <TextBox x:Name="BronzeNumber" Text="0" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" Width="125"/>
+                    <TextBox x:Name="GoldNumber" Text="3" Grid.Column="1" HorizontalAlignment="Center" Width="125"/>
+                    <TextBox x:Name="SilverNumber" Text="3" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" Width="125"/>
+                    <TextBox x:Name="BronzeNumber" Text="3" Grid.Column="1" Grid.Row="2" HorizontalAlignment="Center" Width="125"/>
                     <TextBox x:Name="FirstStandingTitle" Text="" Grid.Column="1" Grid.Row="3" HorizontalAlignment="Center" Width="125"/>
-                    <CheckBox x:Name="FirstBlood" Grid.Row="0" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    <CheckBox x:Name="LastAccept" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <CheckBox x:Name="FirstBlood" Grid.Row="0" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="true"/>
+                    <CheckBox x:Name="LastAccept" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="true"/>
                     <CheckBox x:Name="groupTop" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     <ListView x:Name="AwardView" Grid.Row="5" Grid.ColumnSpan="4" Margin="0,22,0,0" Grid.RowSpan="7" SelectionChanged="AwardView_SelectionChanged">
                         <ListView.View>
