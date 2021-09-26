@@ -540,7 +540,7 @@ namespace IcpcResolver.Window
             }
 
             // space to run animation a step
-            if (e.IsDown && e.Key == Key.Space)
+            if (e.IsDown && (e.Key == Key.Space || e.Key == Key.Right || e.Key == Key.Down || e.Key == Key.PageDown))
             {
                 await RunAnimationStep();
             }

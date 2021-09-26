@@ -151,8 +151,15 @@ namespace IcpcResolver.Window
                                 targetSubmissionList.RemoveAt(
                                     targetSubmissionList.FindIndex(x => x.id == opData["id"]?.ToString()));
                             }
+                            else if (opType.ToString() == "update")
+                            {
+                                var idx = targetSubmissionList.FindIndex(x => x.id == submission.id);
+                                if (idx != -1)
+                                    targetSubmissionList[idx] = new SubmissionWithResult(submission);
+                            }
                             else
                             {
+                                
                                 var submissionWithResult = new SubmissionWithResult(submission);
                                 targetSubmissionList.Add(submissionWithResult);
                             }
