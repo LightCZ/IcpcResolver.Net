@@ -61,4 +61,11 @@
         <Generator>MSBuild:Compile</Generator>
       </Page>
     </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Resources\icpc-regional-header-master-jb-hua_Europe-CERC_art.png" />
+      <Content Include="Resources\icpc-regional-header-master-jb-hua_Europe-CERC_art.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Content>
+    </ItemGroup>
 </Project>

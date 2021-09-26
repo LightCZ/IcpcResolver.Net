@@ -39,6 +39,10 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
                 
                 <!-- school icon -->
                 <!--<Border Grid.Column="0"
@@ -49,7 +53,7 @@
                     <Label Content="School Icon"/>
                 </Border>-->
                 
-                <StackPanel Grid.Column="1" x:Name="AwardsPanel" Margin="5 0 0 0">
+                <StackPanel Grid.Row="0" Grid.Column="0" x:Name="AwardsPanel" Margin="5 0 0 0">
                     <StackPanel Orientation="Horizontal">
                         <!-- team name -->
                         <Label FontSize="50"
@@ -63,6 +67,9 @@
                                Content="{Binding SchoolName}"/>
                     </StackPanel>
                 </StackPanel>
+                <Image Grid.Row="1" Grid.Column="0"
+                       Source="/Resources/icpc-regional-header-master-jb-hua_Europe-CERC_art.png"></Image>
+                
             </Grid>
         </Grid>
     </Grid>

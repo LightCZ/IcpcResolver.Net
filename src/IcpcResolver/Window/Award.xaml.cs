@@ -74,7 +74,7 @@ namespace IcpcResolver.Window
             if (e.Handled) return;
 
             // space to close window
-            if (e.IsDown && e.Key == Key.Space)
+            if (e.IsDown && (e.Key == Key.Space || e.Key == Key.Right || e.Key == Key.Down || e.Key == Key.PageDown))
             {
                 Close();
             }
